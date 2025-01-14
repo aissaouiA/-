@@ -139,7 +139,7 @@
     </div>
     <div class="container" id="join">
         <h2>الانضمام إلى الجمعية</h2>
-        <form action="https://formspree.io/f/xrbbrned" method="POST">
+        <form id="registrationForm">
             <label for="name">الاسم الكامل:</label>
             <input type="text" id="name" name="name" required>
             <label for="dob">تاريخ الميلاد:</label>
@@ -163,5 +163,61 @@
         <p>&copy; 2025 جمعية اغرس شجرة لك حسنة. جميع الحقوق محفوظة.</p>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script type="module">
+        // استيراد الوظائف المطلوبة من Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+
+        // إعداد Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtr_7zw4SDRF19kv_t25KhC_cx9NnNYVc",
+            authDomain: "aissaoui-cd97a.firebaseapp.com",
+            databaseURL: "https://aissaoui-cd97a-default-rtdb.firebaseio.com",
+            projectId: "aissaoui-cd97a",
+            storageBucket: "aissaoui-cd97a.appspot.com",
+            messagingSenderId: "929116644166",
+            appId: "1:929116644166:web:03130bb00a78169193fb47",
+            measurementId: "G-GNCM7L0Q3N"
+        };
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const analytics = getAnalytics(app);
+
+        console.log("Firebase and Database initialized successfully.");
+
+        // دالة لإضافة البيانات إلى Firebase
+        function addData(name, dob, phone, email, address) {
+            const newUserRef = push(ref(database, 'users'));
+            set(newUserRef, {
+                name: name,
+                dob: dob,
+                phone: phone,
+                email: email,
+                address: address
+            }).then(() => {
+                alert('تم التسجيل بنجاح');
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // معالجة النموذج
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('registrationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const dob = document.getElementById('dob').value;
+                const phone = document.getElementById('phone').value;
+                const email = document.getElementById('email').value;
+                const address = document.getElementById('address').value;
+
+                addData(name, dob, phone, email, address);
+            });
+        });
+    </script>
 </body>
 </html>
