@@ -139,7 +139,7 @@
     </div>
     <div class="container" id="join">
         <h2>الانضمام إلى الجمعية</h2>
-        <form action="https://formspree.io/f/xrbbrned" method="POST">
+        <form id="user-form">
             <label for="name">الاسم الكامل:</label>
             <input type="text" id="name" name="name" required>
             <label for="dob">تاريخ الميلاد:</label>
@@ -157,11 +157,80 @@
     <div class="container" id="contact">
         <h2>تواصل معنا</h2>
         <p>يمكنك التواصل معنا عبر البريد الإلكتروني: <a href="mailto:planttreeawladissa49@gmail.com">planttreeawladissa49@gmail.com</a> أو الاتصال على الرقم: 0654703071</p>
-        <p>تابعنا على الفيسبوك: <a href="https://www.facebook.com/yourpage" target="_blank"><img src="facebook-logo.png" alt="شعار الفيسبوك" class="facebook-logo">صفحتنا على الفيسبوك</a></p>
+        <p>تابعنا على الفيسبوك: <a href="https://www.facebook.com/profile.php?id=61565531365683" target="_blank"><img src="facebook-logo.png" alt="شعار الفيسبوك" class="facebook-logo">صفحتنا على الفيسبوك</a></p>
     </div>
+
     <footer>
         <p>&copy; 2025 جمعية اغرس شجرة لك حسنة. جميع الحقوق محفوظة.</p>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+    <!-- إضافة مكتبة Firestore -->
+    <script type="module">
+        // Import Firebase and Firestore functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtr_7zw4SDRF19kv_t25KhC_cx9NnNYVc",
+            authDomain: "aissaoui-cd97a.firebaseapp.com",
+            databaseURL: "https://aissaoui-cd97a-default-rtdb.firebaseio.com",
+            projectId: "aissaoui-cd97a",
+            storageBucket: "aissaoui-cd97a.firebasestorage.app",
+            messagingSenderId: "929116644166",
+            appId: "1:929116644166:web:03130bb00a78169193fb47",
+            measurementId: "G-GNCM7L0Q3N"
+        };
+         
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+    
+        // Initialize Firestore
+        const db = getFirestore(app);
+    
+        // Function to add data to Firestore
+        async function addData(name, dob, phone, email, address) {
+    try {
+        const docRef = await addDoc(collection(db, "members"), {
+            name: name,
+            dateOfBirth: dob,
+            phone: phone,
+            email: email,
+            address: address
+        });
+        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+}
+
+// Example usage: handling form submission
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+    
+    // الحصول على القيم المدخلة من المستخدم
+    const name = document.getElementById('name').value;
+    const dob = document.getElementById('dob').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const address = document.getElementById('address').value;
+
+    // استدعاء دالة إضافة البيانات
+    addData(name, dob, phone, email, address);
+});
+ if(app){
+            // التحقق من الاتصال بـ Firebase و Firestore
+            console.log("Firebase and Firestore initialized successfully.");
+
+ }
+else{
+            // التحقق من الاتصال بـ Firebase و Firestore
+            console.log("Firebase .");
+
+}
+
+    </script>
+    
+
 </body>
 </html>
