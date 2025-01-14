@@ -4,46 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تسجيل المستخدم</title>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database.js"></script>
-</head>
-<body>
-    <form id="registrationForm">
-        <input type="text" id="name" placeholder="الاسم" required />
-        <input type="date" id="dob" placeholder="تاريخ الميلاد" required />
-        <input type="tel" id="phone" placeholder="رقم الهاتف" required />
-        <input type="email" id="email" placeholder="البريد الإلكتروني" required />
-        <input type="text" id="address" placeholder="العنوان" required />
-        <button type="submit">التسجيل</button>
-    </form>
+    <script type="module">
+        // استيراد الوظائف المطلوبة من Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/9.x.x/firebase-database.js";
 
-    <script>
         // إعداد Firebase
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyBtr_7zw4SDRF19kv_t25KhC_cx9NnNYVc",
+            authDomain: "aissaoui-cd97a.firebaseapp.com",
+            databaseURL: "https://aissaoui-cd97a-default-rtdb.firebaseio.com",
+            projectId: "aissaoui-cd97a",
+            storageBucket: "aissaoui-cd97a.firebasestorage.app",
+            messagingSenderId: "929116644166",
+            appId: "1:929116644166:web:03130bb00a78169193fb47",
+            measurementId: "G-GNCM7L0Q3N"
         };
 
+  
+
         // تهيئة Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database(app);
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
         // التحقق من الاتصال بـ Firebase
-        if (app) {
-            console.log("Firebase and Database initialized successfully.");
-        } else {
-            console.log("Failed to initialize Firebase.");
-        }
+        console.log("Firebase and Database initialized successfully.");
 
         // دالة لإضافة البيانات إلى Firebase
         function addData(name, dob, phone, email, address) {
-            const newUserRef = database.ref('users').push();
-            newUserRef.set({
+            const newUserRef = push(ref(database, 'users'));
+            set(newUserRef, {
                 name: name,
                 dob: dob,
                 phone: phone,
@@ -69,15 +59,6 @@
             addData(name, dob, phone, email, address);
         });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل المستخدم</title>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database.js"></script>
 </head>
 <body>
     <form id="registrationForm">
@@ -88,58 +69,5 @@
         <input type="text" id="address" placeholder="العنوان" required />
         <button type="submit">التسجيل</button>
     </form>
-
-    <script>
-        // إعداد Firebase
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        // تهيئة Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database(app);
-
-        // التحقق من الاتصال بـ Firebase
-        if (app) {
-            console.log("Firebase and Database initialized successfully.");
-        } else {
-            console.log("Failed to initialize Firebase.");
-        }
-
-        // دالة لإضافة البيانات إلى Firebase
-        function addData(name, dob, phone, email, address) {
-            const newUserRef = database.ref('users').push();
-            newUserRef.set({
-                name: name,
-                dob: dob,
-                phone: phone,
-                email: email,
-                address: address
-            }).then(() => {
-                alert('تم التسجيل بنجاح');
-            }).catch(error => {
-                console.error('Error:', error);
-            });
-        }
-
-        // معالجة النموذج
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const name = document.getElementById('name').value;
-            const dob = document.getElementById('dob').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const address = document.getElementById('address').value;
-
-            addData(name, dob, phone, email, address);
-        });
-    </script>
 </body>
-    </html>
+</html>
